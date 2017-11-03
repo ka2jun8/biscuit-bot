@@ -1,0 +1,25 @@
+{
+  "name": "biscuit-bot",
+  "version": "0.0.1",
+  "main": "index.js",
+  "author": "kani",
+  "license": "MIT",
+  "scripts": {
+    "start": "node index.js",
+    "build": "tsc",
+    "build:watch": "tsc -w",
+    "lint": "tslint --project ./"
+  },
+  "devDependencies": {
+    "@types/twit": "^2.2.7",
+    "@types/underscore": "^1.8.4",
+    "tslint": "^5.8.0",
+    "typescript": "^2.6.1"
+  },
+  "dependencies": {
+    "firebase": "^4.6.1",
+    "firebase-admin": "^5.4.3",
+    "twit": "^2.2.9",
+    "underscore": "^1.8.3"
+  }
+}

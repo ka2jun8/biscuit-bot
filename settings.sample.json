@@ -1,0 +1,12 @@
+{
+  "twitter": {
+    "consumer_key": "your's",
+    "consumer_secret": "your's",
+    "access_token": "your's",
+    "access_token_secret": "your's"
+  },
+  "firebase": {
+    "databaseURL": "https://xxx.firebaseio.com",
+    "user": "target user id"
+  }
+}
