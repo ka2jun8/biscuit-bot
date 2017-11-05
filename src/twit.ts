@@ -1,7 +1,18 @@
 import * as Twit from "twit";
 import * as _ from "underscore";
 
-const config = require("../settings.json");
+// const config = require("../settings.json");
+
+require("dotenv").config();
+const config = {
+  twitter: {
+    consumer_key: process.env.twitter_consumer_key,
+    consumer_secret: process.env.twitter_consumer_secret,
+    access_token: process.env.twitter_access_token,
+    access_token_secret: process.env.twitter_access_token_secret,
+  },
+};
+
 const twitConfig = _.assign({}, config.twitter, {timeout_ms: 60*1000});
 const TWITTER_ID = "822979431006228480";
 
