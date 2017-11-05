@@ -1,30 +1,35 @@
 import * as admin from "firebase-admin";
 import * as _ from "underscore";
 
-// const config = require("../settings.json");
-// const _serviceAccount = require("../serviceAccountKey.json");
+let config: any = {};
+let serviceAccount = {};
 
-require("dotenv").config();
-
-const config = {
-  firebase: {
-    databaseURL: process.env.firebase_database_url,
-    user: process.env.firebase_user,
-  }
-};
-
-const serviceAccount = {
-  type: process.env.firebase_type,
-  project_id: process.env.firebase_project_id,
-  private_key_id: process.env.firebase_private_key_id,
-  private_key: process.env.firebase_private_key,
-  client_email: process.env.firebase_client_email,
-  client_id: process.env.firebase_client_id,
-  auth_uri: process.env.firebase_auth_uri,
-  token_uri: process.env.firebase_token_uri,
-  auth_provider_x509_cert_url: process.env.firebase_auth_provider_x509_cert_url,
-  client_x509_cert_url: process.env.firebase_client_x509_cert_url,
-};
+try {
+  config = require("../settings.json");
+  serviceAccount = require("../serviceAccountKey.json");
+  
+}catch(e) {
+  require("dotenv").config();
+  config = {
+    firebase: {
+      databaseURL: process.env.firebase_database_url,
+      user: process.env.firebase_user,
+    }
+  };
+  
+  serviceAccount = {
+    type: process.env.firebase_type,
+    project_id: process.env.firebase_project_id,
+    private_key_id: process.env.firebase_private_key_id,
+    private_key: process.env.firebase_private_key,
+    client_email: process.env.firebase_client_email,
+    client_id: process.env.firebase_client_id,
+    auth_uri: process.env.firebase_auth_uri,
+    token_uri: process.env.firebase_token_uri,
+    auth_provider_x509_cert_url: process.env.firebase_auth_provider_x509_cert_url,
+    client_x509_cert_url: process.env.firebase_client_x509_cert_url,
+  };
+}
 
 export interface ListInfo {
   __id?: string;
