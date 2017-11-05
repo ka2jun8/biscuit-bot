@@ -9,7 +9,7 @@
     "build": "tsc",
     "build:watch": "tsc -w",
     "lint": "tslint --project ./",
-    "heroku-prebuild": "npm install typescript && tsc"
+    "heroku-prebuild": "npm install typescript"
   },
   "devDependencies": {
     "@types/twit": "^2.2.7",
