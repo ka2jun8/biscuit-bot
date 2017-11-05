@@ -41,7 +41,7 @@ export class TwitWrapper {
           console.error("post error", err);
           reject();
         }else {
-          console.log("post tweet ", (data as any).text);
+          // console.log("post tweet ", (data as any).text);
           resolve();
         }
       });
