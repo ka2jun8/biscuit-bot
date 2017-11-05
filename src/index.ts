@@ -46,9 +46,11 @@ firebase.subscribeText((results) => {
   allTexts = results;
 });
 
-twit.getFollower().then(() => {
-  twit.followBack();
-  twit.stream((tweetId, inReplyToStatusId, screenName) => {
+twit.start().then(() => {
+  console.log("tweet stream started!");
+  twit.streamForFollowBack();
+  twit.streamForReply((tweetId, inReplyToStatusId, screenName) => {
+    console.log("replied! ", {tweetId, inReplyToStatusId, screenName});
     twit.get(inReplyToStatusId).then((data) => {
       const item = getMeaning(data.text);
       if (item) {
@@ -63,7 +65,7 @@ twit.getFollower().then(() => {
 const timer = setInterval(()=>{
   const m = moment();
   const am7 = moment().hour(8).minute(0).second(0);
-  const pm23 = moment().hour(23).minute(0).second(0);
+  const pm23 = moment().hour(23).minute(59).second(59);
   if(m.isAfter(am7) && m.isBefore(pm23)) {
     postTweet();
   }

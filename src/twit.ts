@@ -30,6 +30,10 @@ export class TwitWrapper {
     this.T = new Twit(twitConfig);
   }
 
+  start() {
+    return this.getFollower();
+  }
+
   get(id: string) {
     return new Promise<any>((resolve, reject)=>{
       this.T.get("statuses/show/:id", {id}, (err, data, response) => {
@@ -70,6 +74,7 @@ export class TwitWrapper {
           reject();
         }else {
           this.followerIds = (data as any).ids;
+          console.log("my followers: ", this.followerIds);
           resolve();
         }
       });
@@ -77,7 +82,7 @@ export class TwitWrapper {
   }
 
   // TODO 鍵垢のフォロバはできないっぽい？
-  followBack() {
+  streamForFollowBack() {
     this.userStream = this.T.stream("user");
     this.userStream.on("follow", (event)=>{
       if(event.source.id_str !== TWITTER_ID) {
@@ -93,12 +98,18 @@ export class TwitWrapper {
     // this.timers.push(timer);
   }
 
-  stream(callback: (tweetId, replyId, userId)=>void) {
+  streamForReply(callback: (tweetId, replyId, userId)=>void) {
     this.textStream = this.T.stream("statuses/filter", {track: ["@mccookie0120"]});
     this.textStream.on("tweet", (tweet) => {
-      // console.log("reply: ", tweet);
+      console.log("reply: ", tweet);
       callback(tweet.id_str, tweet.in_reply_to_status_id, tweet.user.screen_name);
     });
+
+    // const T = new Twit(twitConfig);
+    // const stream = T.stream("statuses/sample");
+    // stream.on("tweet", function (tweet) {
+    //   console.log(tweet)
+    // })
     
     // const timer = setTimeout(()=>{
     //   this.textStream.stop();
