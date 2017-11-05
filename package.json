@@ -9,7 +9,7 @@
     "build": "tsc",
     "build:watch": "tsc -w",
     "lint": "tslint --project ./",
-    "postinstall": "npm install typescript && tsc"
+    "heroku-prebuild": "npm install typescript && tsc"
   },
   "devDependencies": {
     "@types/twit": "^2.2.7",
@@ -21,6 +21,7 @@
     "dotenv": "^4.0.0",
     "firebase": "^4.6.1",
     "firebase-admin": "^5.4.3",
+    "moment": "^2.19.1",
     "twit": "^2.2.9",
     "underscore": "^1.8.3"
   }

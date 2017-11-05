@@ -1,4 +1,5 @@
 import * as _ from "underscore";
+import * as moment from "moment";
 
 import { TwitWrapper } from "./twit";
 import { FirebaseWrapper, TextInfo } from "./firebase";
@@ -60,8 +61,13 @@ twit.getFollower().then(() => {
 
 // 一定時間ごとにツイート　
 const timer = setInterval(()=>{
-  postTweet();
-}, 1000 * 60 * 60 * 3);
+  const m = moment();
+  const am7 = moment().hour(8).minute(0).second(0);
+  const pm23 = moment().hour(23).minute(0).second(0);
+  if(m.isAfter(am7) && m.isBefore(pm23)) {
+    postTweet();
+  }
+}, 1000 * 60);
 
 // 終了時にunsubとか
 process.on("SIGINT", () => {
