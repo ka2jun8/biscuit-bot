@@ -70,7 +70,7 @@ export class TwitWrapper {
     return new Promise<any>((resolve, reject)=>{
       this.T.get("followers/ids", {}, (err, data, response) => {
         if(err){
-          console.error("post error", err);
+          console.error("get follower error", err);
           reject();
         }else {
           this.followerIds = (data as any).ids;
@@ -101,8 +101,8 @@ export class TwitWrapper {
   streamForReply(callback: (tweetId, replyId, userId)=>void) {
     this.textStream = this.T.stream("statuses/filter", {track: ["@mccookie0120"]});
     this.textStream.on("tweet", (tweet) => {
-      console.log("reply: ", tweet);
-      callback(tweet.id_str, tweet.in_reply_to_status_id, tweet.user.screen_name);
+      console.log("reply: ", {tweetId: tweet.id, user: tweet.user.screen_name, text: tweet.text});
+      callback(tweet.id, tweet.in_reply_to_status_id, tweet.user.screen_name);
     });
 
     // const T = new Twit(twitConfig);
