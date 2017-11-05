@@ -26,6 +26,8 @@ const serviceAccount = {
   client_x509_cert_url: process.env.firebase_client_x509_cert_url,
 };
 
+console.log(serviceAccount);
+
 export interface ListInfo {
   __id?: string;
   title: string;
