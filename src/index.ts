@@ -71,10 +71,10 @@ twit.start().then(() => {
 
 // 一定時間ごとにツイート　
 const timer = setInterval(()=>{
-  const m = moment();
+  const m = moment().add("hours", 9); //日本時刻に合わせる
   const am7 = moment().hour(7).minute(0).second(0);
   const pm23 = moment().hour(23).minute(59).second(59);
-  console.log("Timezone: ", {m: m.format("YYYY-MM-DD HH:mm:ss"), am7: am7.format("YYYY-MM-DD HH:mm:ss"), pm23: pm23.format("YYYY-MM-DD HH:mm:ss")});
+  // console.log("Timezone: ", {m: m.format("YYYY-MM-DD HH:mm:ss"), am7: am7.format("YYYY-MM-DD HH:mm:ss"), pm23: pm23.format("YYYY-MM-DD HH:mm:ss")});
   // 夜中にツイートしない
   if(m.isAfter(am7) && m.isBefore(pm23)) {
     postTweet();
