@@ -5,14 +5,21 @@ import { TwitWrapper } from "./twit";
 import { FirebaseWrapper, TextInfo } from "./firebase";
 
 let allTexts: TextInfo[] = [];
+let orderOfTweets: number = 0;
 
 const firebase = new FirebaseWrapper();
 const twit = new TwitWrapper();
 
 function postTweet() {
   if (allTexts.length > 0) {
-    const randomIndex = _.random(allTexts.length - 1);
-    const selectedItem = allTexts[randomIndex];
+    if(orderOfTweets === allTexts.length) {
+      allTexts = _.shuffle(allTexts);
+      orderOfTweets = 0;
+    }
+
+    const selectedItem = allTexts[orderOfTweets];
+    orderOfTweets = orderOfTweets + 1;
+
     let postSentence = null;
 
     const sentenceOrMeaning = _.random(100);
@@ -43,7 +50,8 @@ function getMeaning(sentence: string) {
 
 // 単語帳情報を取得
 firebase.subscribeText((results) => {
-  allTexts = results;
+  allTexts = _.shuffle(results);
+  orderOfTweets = 0;
 });
 
 twit.start().then(() => {
@@ -66,6 +74,7 @@ const timer = setInterval(()=>{
   const m = moment();
   const am7 = moment().hour(8).minute(0).second(0);
   const pm23 = moment().hour(23).minute(59).second(59);
+  // 夜中にツイートしない
   if(m.isAfter(am7) && m.isBefore(pm23)) {
     postTweet();
   }
