@@ -79,7 +79,7 @@ const timer = setInterval(()=>{
   if(m.isAfter(am7) && m.isBefore(pm23)) {
     postTweet();
   }
-}, 1000 * 60 /** 60*/ * 2);
+}, 1000 * 60 * 60 * 2);
 
 // 終了時にunsubとか
 process.on("SIGINT", () => {
